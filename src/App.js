@@ -9,6 +9,7 @@ class App extends Component {
           Hellp React, this is a test branch, this is a bg;
         </p>
         <p>create dev branch</p>
+        <p>add new content</p>
       </div>
     );
   }
