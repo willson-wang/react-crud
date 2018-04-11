@@ -6,7 +6,7 @@ class App extends Component {
     return (
       <div className="App">
         <p className="App-intro">
-          Hellp React, this is a demo;
+          Hellp React, this is a test branch;
         </p>
       </div>
     );
