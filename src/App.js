@@ -10,6 +10,7 @@ class App extends Component {
         </p>
         <p>create dev branch</p>
         <p>add new content</p>
+        <span>it's my life</span>
       </div>
     );
   }
