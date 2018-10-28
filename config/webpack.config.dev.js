@@ -114,13 +114,14 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
+              // eslintPath: require.resolve('eslint'),
               
             },
             loader: require.resolve('eslint-loader'),
           },
         ],
         include: paths.appSrc,
+        exclude:[path.resolve(__dirname, '../node_modules')]
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -157,7 +158,9 @@ module.exports = {
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
           {
-            test: /\.css$/,
+            // test: /\.css$/,
+            test: /\.module\.css$/,
+            // exclude: /node_modules/,
             use: [
               require.resolve('style-loader'),
               {
@@ -165,6 +168,40 @@ module.exports = {
                 options: {
                   importLoaders: 1,
                   modules: true
+                },
+              },
+              {
+                loader: require.resolve('postcss-loader'),
+                options: {
+                  // Necessary for external CSS imports to work
+                  // https://github.com/facebookincubator/create-react-app/issues/2677
+                  ident: 'postcss',
+                  plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9', // React doesn't support IE8 anyway
+                      ],
+                      flexbox: 'no-2009',
+                    }),
+                  ],
+                },
+              },
+            ],
+          },
+          {
+            test: /(?!\.module)\.css$/,
+            // include: /node_modules/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  modules: false
                 },
               },
               {
