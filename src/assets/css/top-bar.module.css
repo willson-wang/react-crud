@@ -1,0 +1,25 @@
+.top-bar {
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: #f4f5f6;
+    font-size: 16px;
+    color: #505050;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.top-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.top-bar__item {
+    flex: 0 0 54px;
+    height: 26px;
+    line-height: 26px;
+    margin: 5px 0 5px 5px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}

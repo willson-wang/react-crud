@@ -1,0 +1,24 @@
+.header {
+    flex: 0 0 44px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: #d43d3d;
+    color: #fff;
+}
+
+.header__news {
+    flex: 0 0 80px;
+}
+
+.header__title {
+    flex: 1;
+    margin: 0;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.header__search {
+    flex: 0 0 80px;
+}

@@ -1,8 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/css/common.module.css';
-import App from './components/app';
+import 'antd-mobile/dist/antd-mobile.css';
+import './assets/css/common.css';
+import App from './containers/app';
 import registerServiceWorker from './registerServiceWorker';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import userReducer from './reducers/user';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(userReducer);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+    , document.getElementById('root'));
 registerServiceWorker();

@@ -1,0 +1,19 @@
+.tab-bar {
+    display: flex;
+    flex: 0 0 45px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.tab-bar__item {
+    flex: 0 0 50%;
+    display: flex;
+}
+
+.tab-bar__item a {
+    flex: 0 0 100%;
+    line-height: 45px;
+}
