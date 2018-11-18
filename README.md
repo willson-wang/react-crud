@@ -31,5 +31,7 @@ yarn build （发布）
 
 ## 扫描下面二维码直接预览
 
-
+<a href="https://github.com/willson-wang/react-crud/blob/master/src/assets/images/qr.png" target="_blank">
+    <img src="https://github.com/willson-wang/react-crud/blob/master/src/assets/images/qr.png" width="220" height="220" style="max-width:100%;">
+</a>
 
