@@ -1,68 +1,31 @@
 import React, { Component } from 'react';
 import { PullToRefresh, ListView } from 'antd-mobile';
 import home from '../assets/css/home.module.css';
-import { getRecommandList } from '../api/home';
 import Row from './tpl/row';
 import TopBar from '../components/top-bar';
-
-const dataSource = new ListView.DataSource({
-    rowHasChanged: (row1, row2) => row1 !== row2
-});
+import PropTypes from 'prop-types';
 
 export default class Home extends Component {
 
-    constructor() {
-        super();
-
-        this.state = {
-            initData: [],
-            dataSource: dataSource.cloneWithRows([]),
-            isLoading: false,
-            refreshing: false,
-            hasMore: false,
-            height: document.documentElement.clientHeight - 44 - 36 - 46,
-        };
+    static propTypes = {
+        isLoading: PropTypes.bool,
+        refreshing: PropTypes.bool,
+        hasMore: PropTypes.bool,
+        height: PropTypes.number,
+        dataSource: PropTypes.object,
+        _getRecommandList: PropTypes.func
     }
 
-    UNSAFE_componentWillMount() {
-        this._getRecommandList();
-    }
-
-    _getRecommandList (flag = 'min') {
-        if (this.state.isLoading && !this.state.hasMore) {
-            return;
-        }
-        this.setState({
-            isLoading: true,
-            refreshing: true
-        });
-
-        let params = [];
-        params[`${flag}_behot_time`] = (+new Date()).toString().slice(0, 10);
-
-        getRecommandList('https://m.toutiao.com/list/', params).then((res) => {
-            console.log(this.state.initData, this.state.initData.length);
-            this.setState({
-                initData: flag === 'min' ? res.data : this.state.initData.concat(res.data),
-                dataSource: dataSource.cloneWithRows(flag === 'min' ? res.data : this.state.initData.concat(res.data))
-            });
-        }).catch((err) => {
-            console.log('err', err);
-        }).finally(() => {
-            this.setState({
-                isLoading: false,
-                refreshing: false
-            });
-        });
+    constructor(props) {
+        super(props);
     }
 
     onEndReached = () => {
-        this._getRecommandList('max');
+        this.props._getRecommandList && this.props._getRecommandList('max');
     }
 
-    onRefresh = (e) => {
-        console.log('refresh', e);
-        this._getRecommandList();
+    onRefresh = () => {
+        this.props._getRecommandList && this.props._getRecommandList();
     }
 
     render() {
@@ -76,21 +39,21 @@ export default class Home extends Component {
                 <TopBar></TopBar>
                 <ListView
                     ref={el => this.lv = el}
-                    dataSource={this.state.dataSource}
+                    dataSource={this.props.dataSource}
                     renderFooter={() => (<div style={{ padding: 0, textAlign: 'center' }}>
-                        {this.state.isLoading ? 'Loading...' : 'Loaded'}
+                        {this.props.isLoading ? 'Loading...' : 'Loaded'}
                     </div>)}
                     renderRow={row}
                     style={{
-                        height: this.state.height,
+                        height: this.props.height,
                         overflow: 'auto',
                     }}
                     pageSize={4}
                     pullToRefresh={<PullToRefresh
-                        damping={36}
-                        refreshing={this.state.refreshing}
+                        damping={50}
+                        refreshing={this.props.refreshing}
                         onRefresh={this.onRefresh}
-                        distanceToRefresh={window.devicePixelRatio * 25}
+                        distanceToRefresh={25}
                     />}
                     onScroll={() => { console.log('scroll'); }}
                     scrollRenderAheadDistance={500}

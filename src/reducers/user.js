@@ -6,38 +6,30 @@ const REMOVE_USERINFO = 'REMOVE_USERINFO';
 const UPDATE_USERINFO = 'UPDATE_USERINFO';
 
 // reducer
-export default function (state, action) {
-    if (!state) {
-        state = {
-            userInfo: {},
-            logined: false
-        };
-    }
-
+export function logined(state = false, action) {
     switch(action.type) {
         case LOGIN:
-            return {...state, logined: action.login};
+            return action.login;
         case LOGINOUT:
-            return {...state, logined: action.login};
+            return action.login;
+        default:
+            return state;
+    }
+}
+
+export function userInfo(state = {}, action) {
+    switch(action.type) {
         case SAVE_USERINFO:
             return {
                 ...state,
-                userInfo: {
-                    ...action.userInfo,
-                }
+                ...action.userInfo
             };
         case REMOVE_USERINFO:
-            return {
-                ...state,
-                userInfo: {}
-            };
+            return {};
         case UPDATE_USERINFO:
             return {
-                ...state,
-                userInfo: {
-                    ...state.userInfo,
-                    ...action.userInfo
-                }
+                ...state.user,
+                ...action.userInfo,
             };
         default:
             return state;
@@ -45,11 +37,12 @@ export default function (state, action) {
 }
 
 // action creators
-export const login = (login) => {
+export const userLogin = (login) => {
+    console.log('login', login);
     return {type: LOGIN, login};
 };
 
-export const loginout = (login) => {
+export const userLoginout = (login) => {
     return {type: LOGINOUT, login};
 };
 

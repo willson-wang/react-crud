@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import UserInfo from './user-info';
 import PropTypes from 'prop-types';
 import user from '../assets/css/user.module.css';
-import UserSetting from './user-setting';
+import UserSetting from '../components/user-setting';
 
 export default class User extends Component {
     static propTypes = {

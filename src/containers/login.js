@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { List, InputItem, Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import PropTypes from 'prop-types';
-import { login, saveUserInfo } from '../reducers/user';
+import { saveUserInfo, userLogin } from '../reducers/user';
 import { connect } from 'react-redux';
+import login from '../assets/css/login.module.css';
 
 class Login extends Component {
 
@@ -26,19 +27,20 @@ class Login extends Component {
     render() {
         const { getFieldProps } = this.props.form;
         return (
-            <div style={{width: '100%'}}>
+            <div className={login.login}>
+                <h3 className={login.title}>每日头条</h3>
                 <List>
                     <InputItem
                         {...getFieldProps('phone')}
                         type="phone"
                         placeholder="186 1234 1234"
-                    >手机号码</InputItem>
+                    >手机号</InputItem>
                     <InputItem
                         {...getFieldProps('password')}
                         type="password"
                         placeholder="****"
                     >密码</InputItem>
-                    <Button type="primary" onClick={this.handlerLogin.bind(this)}>登录</Button>
+                    <Button className={login.btn} type="primary" onClick={this.handlerLogin.bind(this)}>登录</Button>
                 </List>
             </div>
         );
@@ -60,8 +62,9 @@ const mapDispatchToProps = (dispatch) => {
             console.log('login', userInfo);
             dispatch(saveUserInfo(userInfo));
         },
-        onLogin: (logined) => {
-            dispatch(login(logined));
+        onLogin: (loginState) => {
+            console.log('onLogin', userLogin(loginState));
+            dispatch(userLogin(loginState));
         }
     };
 };

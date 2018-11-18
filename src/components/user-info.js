@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import user from '../assets/css/user-info.module.css';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class User extends Component {
     static propTypes = {
-        history: PropTypes.object
+        history: PropTypes.object,
+        logined: PropTypes.bool,
+        userInfo: PropTypes.object
     }
 
     constructor(props) {
@@ -91,12 +92,13 @@ class User extends Component {
 
     render() {
         console.log(this);
+        const { username } = this.props.userInfo;
         return (
             <div className={user.user}>
                 <div className={user['user__header']}>
                     <img />
                     <div>
-                        <span>剑九二</span>
+                        <span>{username}</span>
                         <button>申请认证</button>
                     </div>
                     <span>&gt;</span>
@@ -135,11 +137,4 @@ class User extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        logined: state.logined,
-        userInfo: state.userInfo
-    };
-};
-
-export default connect(mapStateToProps)(User);
+export default User;

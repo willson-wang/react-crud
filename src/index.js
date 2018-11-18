@@ -4,11 +4,11 @@ import 'antd-mobile/dist/antd-mobile.css';
 import './assets/css/common.css';
 import App from './containers/app';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import userReducer from './reducers/user';
-
-const store = createStore(userReducer);
+import thunk from 'redux-thunk';
+import appReducers from './reducers';
+const store = createStore(appReducers, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>
