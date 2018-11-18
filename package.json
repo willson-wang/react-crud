@@ -108,5 +108,5 @@
   "pre-commit": [
     "lint"
   ],
-  "homepage": "http://willson-wang.github.io/react-crud/build"
+  "homepage": "./"
 }
